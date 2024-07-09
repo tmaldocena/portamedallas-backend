@@ -1,0 +1,21 @@
+-- CREATE TABLES --
+CREATE TABLE products (
+    product_id TEXT PRIMARY_KEY,
+    product_name TEXT NOT NULL,
+    product_price TEXT NOT NULL,
+    product_category TEXT NOT NULL,
+    product_firstimg TEXT NOT NULL UNIQUE,
+    product_secondimg TEXT UNIQUE,
+    product_thirdimg TEXT UNIQUE,
+    product_fourthimg TEXT UNIQUE,
+);
+
+CREATE TABLE
+  usuarios (
+    user_id TEXT PRIMARY KEY,
+    user_name TEXT NOT NULL,
+    user_mail TEXT NOT NULL UNIQUE,
+    user_password TEXT NOT NULL,
+    user_phone TEXT NOT NULL,
+    user_dir TEXT
+  );
