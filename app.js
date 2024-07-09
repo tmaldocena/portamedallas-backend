@@ -7,6 +7,8 @@ const UserRepository = require('./user/userRepository.js');
 const confirmRepository = require('./user/userRepository.js');
 const mercadopago = require("mercadopago");
 const { MercadoPagoConfig, Preference } = require('mercadopago');
+const http = require('http');
+
 
 require('dotenv').config()
 
@@ -17,7 +19,13 @@ app.use(cookieParser());
 
 const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN })
 
-
+// Create a server object
+const server = http.createServer((req, res) => {
+    // Set the response header
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    // Write some text to the response
+    res.end('Welcome to my simple Node.js app!');
+});
 
 app.post((req, res, next) => {
 	const token = req.cookies.access_token;
