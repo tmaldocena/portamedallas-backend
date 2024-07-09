@@ -7,7 +7,7 @@ const UserRepository = require('./user/userRepository.js');
 const confirmRepository = require('./user/userRepository.js');
 const mercadopago = require("mercadopago");
 const { MercadoPagoConfig, Preference } = require('mercadopago');
-const http = require('http');
+
 
 
 require('dotenv').config()
@@ -18,14 +18,6 @@ app.use(cors(), express.json());
 app.use(cookieParser());
 
 const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN })
-
-// Create a server object
-const server = http.createServer((req, res) => {
-    // Set the response header
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    // Write some text to the response
-    res.end('Welcome to my simple Node.js app!');
-});
 
 app.post((req, res, next) => {
 	const token = req.cookies.access_token;
@@ -46,9 +38,9 @@ const port = process.env.PORT || 3000
 
 
 app.get('/', (req, res) => {
-	res.send('Hello World!')
+	res.send(`<h1>Portamedallas!</h1>`)
 })
-
+/*
 app.get("/api/products", async (_, res) => {
 	try {
 		const data = await db.execute("SELECT * FROM productos;");
@@ -113,7 +105,7 @@ app.post("/api/login", async (req, res) => {
 						sameSite: 'none',
 						//secure: process.env.NODE_ENV === 'production',
 						maxAge: 1000 * 60 * 60
-					}) */
+					}) 
 			.send({ user, token });
 	} catch (error) {
 		res.status(400).send(error);
@@ -192,4 +184,3 @@ app.post("/process_payment", async (req, res) => {
 app.listen(port, () => {
 	console.log(`Listening to port: ${port} :D`)
 })
-
