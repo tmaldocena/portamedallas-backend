@@ -19,3 +19,25 @@ CREATE TABLE
     user_phone TEXT NOT NULL,
     user_dir TEXT
   );
+
+  CREATE TABLE
+  ordenes (
+    orden_numero INTEGER PRIMARY KEY AUTOINCREMENT,
+    orden_id TEXT NOT NULL,
+    orden_comprador TEXT,
+    orden_dir TEXT,
+    orden_precio TEXT,
+    orden_pedido TEXT,
+    orden_estado INTEGER
+  )
+
+
+-> INFO ACERCA DE ESTADOS
+
+0 -> No pagado
+1 -> Pendiente de Pago
+2 -> Pagado
+3 -> En proceso de envio
+4 -> Enviado
+5 -> Entregado
+

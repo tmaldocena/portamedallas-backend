@@ -1,45 +1,26 @@
-const express = require('express');
+const express = require("express");
+const db = require('../db/config');
+
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const db = require('./db/config.js');
+
 const UserRepository = require('./user/userRepository.js');
 const confirmRepository = require('./user/userRepository.js');
 const ordenRepository = require('./ordenes/ordenRepository.js');
 const mercadopago = require("mercadopago");
 const { MercadoPagoConfig, Preference } = require('mercadopago');
 
-
-
 require('dotenv').config()
-
-const app = express()
-app.use(cors(), express.json());
+const app = express();
+app.use(cors());
+app.use(express.json());
 app.use(cookieParser());
+
 
 const client = new MercadoPagoConfig({ accessToken: process.env.MP_ACCESS_TOKEN })
 
-app.post((req, res, next) => {
-	const token = req.cookies.access_token;
-
-	req.session = { user: null };
-
-	try {
-		data = jwt.verify(token, SECRET_KEY);
-		req.session.user = data;
-	} catch (err) {
-		req.session.user = null;
-	}
-
-	next()
-})
-
-const port = process.env.PORT || 3000
-
-
-app.get('/', (req, res) => {
-	res.send(`<h1>Portamedallas!</h1>`)
-})
+app.get("/", (req, res) => res.send("Portamedallas!"));
 
 app.get("/api/products", async (_, res) => {
 	try {
@@ -129,7 +110,7 @@ app.post("/api/sending", async (req, res) => {
 	try {
 		const mail = await confirmRepository.send();
 	} catch (err) {
-		throw new Error('there was an error ', err);
+		throw new Error('there was an error ');
 	}
 })
 
@@ -170,7 +151,7 @@ app.post("/process_payment/", async (req, res) => {
 	}
 });
 
-app.post("/api/orden/createold", async (req, res) => {
+/* app.post("/api/orden/createold", async (req, res) => {
 	//const id = (req.body.id === "{}" ? "empty" : req.body.id);
 	//console.log(id);
 	try{
@@ -180,7 +161,7 @@ app.post("/api/orden/createold", async (req, res) => {
 	}catch(error){
 		res.status(400).send(error);
 	}
-})
+}) */
 
 app.post("/api/orden/create", async (req, res) => {
 	try{
@@ -255,7 +236,6 @@ app.get("/api/orden/get", async (req, res) => {
 	}
 })
 
+app.listen(3000, () => console.log("Server ready on port 3000."));
 
-app.listen(port, () => {
-	console.log(`Listening to port: ${port} :D`)
-})
+module.exports = app;

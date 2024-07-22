@@ -13,8 +13,8 @@ class confirmRepository {
         });
 
         var mailOptions = {
-            from: 'tomasmaldocena@gmail.com',
-            to: 'tomas.bautista.maldocena@gmail.com',
+            from: '',
+            to: '',
             subject: 'Sending Email using Node.js',
             text: 'That was easy!'
         };

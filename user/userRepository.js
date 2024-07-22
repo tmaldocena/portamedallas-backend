@@ -21,7 +21,7 @@ class UserRepository {
         try {
             const insert = await db.execute(`INSERT INTO usuarios (user_id, user_name, user_password, user_mail) VALUES ("${id}", "${name}", "${hashedPass}", "${email}");`)
             //console.log(id);
-            return id;
+            return insert;
         } catch (err) {
             throw new Error('Creating new user unsuccessfully, ', err);
         }
@@ -57,7 +57,8 @@ class UserRepository {
                 email: user.user_mail,
                 name: user.user_name,
                 phone: user.user_phone,
-                dir: user.user_dir
+                dir: user.user_dir,
+                rol: user.rol
             };
             
         }catch (error){
